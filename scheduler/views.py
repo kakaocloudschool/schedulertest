@@ -14,6 +14,8 @@ def scheduler(request, pk):
         qs = qs.filter(app_name__app_name__exact=pk)
     return render(request, "app/schedule_list.html", {"scheduler": qs})
 
+
+
 @login_required
 def schedule_list(request, pk):
     qs = Scheduler.objects.all()
@@ -77,13 +79,4 @@ def jobadd(request, pk):
 #        qs = qs.filter(app_name__app_name__exact=q)
 #    return render(request, "app/deploy_history.html", {"deploy_history": qs})
 
-@login_required
-def schedule_history(request):
-    qs = DjangoJob.objects.all()
-    # q = request.GET.get("q", "")
-    #if qs:
-    #    qs = qs.filter(app_name__app_name__exact=q)
-
-
-    return render(request, "schedule_list.html", {"schedule_history": qs})
 
