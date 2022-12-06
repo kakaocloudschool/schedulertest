@@ -20,11 +20,6 @@ class AppDeployRevisionForm(forms.ModelForm):
         model = AppDeployRevision
         fields = "__all__"
 
-class ScheduleForm(forms.ModelForm):
-    class Meta:
-        model = Schedule
-        fields = "__all__"
-
 
 class AppInfoForm(forms.ModelForm):
     class Meta:

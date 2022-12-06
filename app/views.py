@@ -62,8 +62,8 @@ def new_schedule(request):
 #                 return redirect("cluster_list")
 #     else:
 #         form = ClusterForm()
-#
-     return render(request, "app/write_form.html", {"form": form})
+
+    return render(request, "app/write_form.html", {"form": form})
 
 
 # Todo - 임시 중첩 if 문 작성 -> 에러 메세지 처리 나온 이후에는, 변환할 것.
@@ -581,7 +581,7 @@ def history_app(request, q):
 
 
 def test_web(request):
-    return render(request, "test.html")
+    return render(request, "jobadd.html")
 
 
 

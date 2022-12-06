@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <div class="container-fluid">
+
+        <form action="{% url 'jobadd' %}"  method="post" >
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+
+
+
+
+                        <div class="card-header py-3">
+
+
+                        </div>
+                    <!-- DataTales Example -->
+
+            <button class="btn btn-primary" type="submit">저장</button>
+        </form>
+    </div>
+{% endblock %}
