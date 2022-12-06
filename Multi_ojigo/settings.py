@@ -128,7 +128,7 @@ if DEBUG:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
-            "NAME": "argocd",
+            "NAME": "test",
             "USER": "root",
             "PASSWORD": "test123",
             "HOST": "127.0.0.1",
@@ -136,18 +136,18 @@ if DEBUG:
             "OPTIONS": {"init_command": 'SET sql_mode="STRICT_TRANS_TABLES"'},
         }
     }
-# # else:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.mysql",
-#             "NAME": "argocd",
-#             "USER": "root",
-#             "PASSWORD": "test123",
-#             "HOST": "192.168.50.106",
-#             "PORT": "3306",
-#             "OPTIONS": {"init_command": 'SET sql_mode="STRICT_TRANS_TABLES"'},
-#         }
-#     }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": "argocd",
+            "USER": "root",
+            "PASSWORD": "test123",
+            "HOST": "192.168.50.106",
+            "PORT": "3306",
+            "OPTIONS": {"init_command": 'SET sql_mode="STRICT_TRANS_TABLES"'},
+        }
+    }
 
 
 # Password validation

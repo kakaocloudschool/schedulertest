@@ -19,8 +19,7 @@ from scheduler.views import  jobadd, schedule_history
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
-    path("schedule_history", schedule_history, name="schedule_history"),
-    path("jobadd/<str:pk>", jobadd, name="jobadd"),
+    path("scheduler/", include("scheduler.urls")),
 
     path("", include("app.urls")),
 ]

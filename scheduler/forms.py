@@ -1,5 +1,13 @@
-from .models import DjangoJob, DjangoJobExecution
+from .models import DjangoJob, DjangoJobExecution, Scheduler
 from django import forms
+
+class SchedulerForm(forms.ModelForm):
+    class Meta:
+        model = Scheduler
+        fields = "__all__"
+        widgets = {
+            "deploy_type": forms.RadioSelect,
+        }
 
 class DateForm(forms.Form):
     date = forms.DateTimeField(

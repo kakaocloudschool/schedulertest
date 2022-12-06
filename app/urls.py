@@ -13,8 +13,6 @@ from .views import (
     bluegreen_detail,
     canary,
     canary_detail,
-    new_schedule,
-    scheduler,
 )
 
 urlpatterns = [
@@ -41,6 +39,4 @@ urlpatterns = [
     # path("test_web", test_web, name="test_web"),
 
 
-    path("new_schedule", new_schedule, name="new_schedule"),
-    path("scheduler/<str:pk>", scheduler, name="scheduler"),
 ]
