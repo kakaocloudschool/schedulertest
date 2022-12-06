@@ -21,8 +21,10 @@ class DateForm(forms.Form):
 class JobForm(forms.ModelForm):
     class Meta:
         model = DjangoJob
-        fields = ["id", "next_run_time", "deploy_type"]
-
+        fields = ["app_name", "next_run_time", "deploy_type"]
+        widgets = {
+            "deploy_type": forms.RadioSelect,
+        }
 
 class JobExecutionForm(forms.ModelForm):
     class Meta:
