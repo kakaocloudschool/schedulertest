@@ -9,23 +9,24 @@ from app.models import AppInfo
 
 
 def jobadd(request, pk):
-    #job = DjangoJob()
-    job = get_object_or_404(AppInfo, pk=pk)
+    job = DjangoJob()
+    appinfo = get_object_or_404(AppInfo, pk=pk)
+
     if request.method=='POST':
-        print("i'm here")
-        form = JobForm(request.POST)
+
+        form = JobForm(request.POST,appinfo)
         if form.is_valid():
             job.id = form.cleaned_data["id"]
-            job.app_name=form.cleaned_data["app_name"]
+
             job.next_run_time=form.cleaned_data["next_run_time"]
             #appinfo = AppInfo.objects.get(app_name=appinfo.app_name)
-            print(job)
-            print(1)
+            print(appinfo.app_name)
+
             job.save()
 
             redirect("schedulejob")
     else:
-        print("hello")
+        print("get")
         form = JobForm()
 
 
@@ -33,9 +34,21 @@ def jobadd(request, pk):
 
 
 
-def schedule(request):
 
-    form = JobExecutionForm()
+#def history_app(request, q):
+#    qs = AppDeployHistory.objects.all()
+#    # q = request.GET.get("q", "")
+#    if qs:
+#        qs = qs.filter(app_name__app_name__exact=q)
+#    return render(request, "app/deploy_history.html", {"deploy_history": qs})
 
-    return render(request, "schedulejob.html", {"form": form})
+@login_required
+def schedule_history(request):
+    qs = DjangoJob.objects.all()
+    # q = request.GET.get("q", "")
+    #if qs:
+    #    qs = qs.filter(app_name__app_name__exact=q)
+
+
+    return render(request, "scheduler.html", {"schedule_history": qs})
 

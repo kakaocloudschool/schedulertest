@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from scheduler.views import schedule, jobadd
+from scheduler.views import  jobadd, schedule_history
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
-    path("schedulejob", schedule, name="schedulejob"),
-    path("jobadd", jobadd, name="jobadd"),
+    path("schedule_history", schedule_history, name="schedule_history"),
+    path("jobadd/<str:pk>", jobadd, name="jobadd"),
 
     path("", include("app.urls")),
 ]

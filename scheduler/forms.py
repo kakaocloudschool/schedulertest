@@ -13,7 +13,7 @@ class DateForm(forms.Form):
 class JobForm(forms.ModelForm):
     class Meta:
         model = DjangoJob
-        fields = ["id","app_name", "next_run_time", "deploy_type"]
+        fields = ["id", "next_run_time", "deploy_type"]
 
 
 class JobExecutionForm(forms.ModelForm):
