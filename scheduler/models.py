@@ -25,7 +25,7 @@ class DjangoJob(models.Model):
     id = models.CharField(
         max_length=255, primary_key=True, help_text=_("Unique id for this job.")
     )
-    app_name = models.ForeignKey(AppInfo, on_delete=models.RESTRICT,null=True, blank=True )
+    app_name = models.ForeignKey(AppInfo, on_delete=models.RESTRICT, null=True,blank=True )
 
 
     next_run_time = models.DateTimeField(
@@ -40,6 +40,25 @@ class DjangoJob(models.Model):
         max_length=20, choices=MY_CHOICES, default="RollingUpdate"
     )
     #job_state = models.BinaryField(null=True)
+
+    cluster_name = models.ForeignKey(Cluster, on_delete=models.RESTRICT,null=True)
+    cluster_url = models.TextField()
+
+    container = models.CharField(max_length=100, null=True)
+    tag = models.CharField(max_length=100,null=True)
+    before_color = models.CharField(max_length=10, null=True)
+    change_color = models.CharField(max_length=10, null=True)
+    target_service = models.CharField(max_length=100, null=True)
+    step = models.CharField(max_length=30,null=True)
+    insert_user = models.CharField(max_length=100,null=True)
+    insert_at = models.DateTimeField(auto_now_add=True,null=True)
+    update_user = models.CharField(max_length=100,null=True)
+    update_at = models.DateTimeField(auto_now=True,null=True)
+    schedule_dt = models.DateField(auto_now=False,null=True)
+    manager_user = models.CharField(max_length=100,null=True)
+
+
+
 
     def __str__(self):
         status = (
@@ -120,6 +139,7 @@ class DjangoJobExecution(models.Model):
         null=True,
         help_text=_("Timestamp at which this job was finished."),
     )
+
 
 
 

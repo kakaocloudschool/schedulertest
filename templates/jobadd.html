@@ -3,11 +3,11 @@
 
 {% block content %}
     <div class="container-fluid">
+        <h2>{{ appinfo.app_name }}</h2>
+        <form method="post" >
 
-        <form action="{% url 'jobadd' app_info.app_name %}"  method="post" >
             {% csrf_token %}
             {% bootstrap_form form %}
-
 
 
 
