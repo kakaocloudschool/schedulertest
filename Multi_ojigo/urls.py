@@ -21,6 +21,6 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("schedulejob", schedule, name="schedulejob"),
     path("jobadd", jobadd, name="jobadd"),
-    #path("app/", include("app.urls")),
+
     path("", include("app.urls")),
 ]

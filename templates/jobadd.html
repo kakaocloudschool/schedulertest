@@ -4,7 +4,7 @@
 {% block content %}
     <div class="container-fluid">
 
-        <form action="{% url 'jobadd' %}"  method="post" >
+        <form action="{% url 'jobadd' app_info.app_name %}"  method="post" >
             {% csrf_token %}
             {% bootstrap_form form %}
 

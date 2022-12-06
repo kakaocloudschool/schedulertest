@@ -1,5 +1,5 @@
 from django import forms
-from .models import AppInfo, Cluster, AppDeployHistory, AppDeployRevision, Schedule
+from .models import AppInfo, Cluster, AppDeployHistory, AppDeployRevision, Scheduler
 
 
 class DeployMethodForm(forms.Form):
@@ -20,7 +20,13 @@ class AppDeployRevisionForm(forms.ModelForm):
         model = AppDeployRevision
         fields = "__all__"
 
-
+class SchedulerForm(forms.ModelForm):
+    class Meta:
+        model = Scheduler
+        fields = "__all__"
+        widgets = {
+            "deploy_type": forms.RadioSelect,
+        }
 class AppInfoForm(forms.ModelForm):
     class Meta:
         model = AppInfo
