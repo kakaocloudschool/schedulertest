@@ -60,12 +60,28 @@ INSTALLED_APPS = [
     # 3rd Party APP
     "django_bootstrap5",
     "bootstrap4",
+    "django_apscheduler",
+
     # local apps
     "accounts",
     "app",
-    "django_apscheduler",
+
     "scheduler",
 ]
+
+# This scheduler config will:
+# - Store jobs in the project database
+# - Execute jobs in threads inside the application process
+SCHEDULER_CONFIG = {
+    "apscheduler.jobstores.default": {
+        "class": "django_apscheduler.jobstores:DjangoJobStore"
+    },
+    'apscheduler.executors.processpool': {
+        "type": "threadpool"
+    },
+}
+SCHEDULER_AUTOSTART = True
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
