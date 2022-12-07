@@ -35,6 +35,8 @@ def scheduler(request, pk):
 @login_required
 def schedule_list(request, pk):
     qs = DjangoJob.objects.all()
+    print(qs)
+    print(pk)
     if qs:
         qs = qs.filter(app_name__app_name__exact=pk)
     return render(request, "app/schedule_list.html", {"schedule_list": qs, "pk": pk})
@@ -49,8 +51,6 @@ def new_schedule(request, pk):
         # form = SchedulerForm(request.POST)
         form = JobForm(request.POST, appinfo)
         form.app_name = pk
-
-
 
         if form.is_valid():
             print("1")

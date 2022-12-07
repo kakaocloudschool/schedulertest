@@ -891,6 +891,7 @@ def canary_detail(request, pk, app_name):
 @login_required
 def history_app(request, q):
     qs = AppDeployHistory.objects.all()
+    print(q)
     # q = request.GET.get("q", "")
     if qs:
         qs = qs.filter(app_name__app_name__exact=q)

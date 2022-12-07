@@ -32,8 +32,9 @@
 <!--                            <th>수정</th><th>삭제</th>-->
                         </tr>
                     </thead>
+                    {% for schedule in schedule_list %}
                     <tbody>
-                        {% for schedule in scheduler %}
+
                         <tr>
                             <td >{{ schedule.namespace }}</td>
                             <td >{{ schedule.deployment }}</td>
@@ -44,8 +45,9 @@
                             <td >{{ schedule.update_user }}</td>
                             <td >{{ schedule.manager_user }}</td>
                         </tr>
-                        {% endfor %}
+
                     </tbody>
+                    {% endfor %}
                 </table>
             </div>
         </div>
