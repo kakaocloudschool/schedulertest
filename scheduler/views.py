@@ -6,6 +6,7 @@ from django.conf import settings
 from .forms import JobForm, JobExecutionForm, SchedulerForm
 from .models import DjangoJob,DjangoJobExecution,DjangoJobExecutionManager, Scheduler
 from app.models import AppInfo
+from datetime import datetime
 
 
 def scheduler(request, pk):
@@ -39,6 +40,38 @@ def schedule_list(request, pk):
     return render(request, "app/schedule_list.html", {"schedule_list": qs, "pk": pk})
 
 
+def str_to_date(test):
+    # print(test)
+
+    if test.rfind('오후') == -1:
+        test_str = test.replace('오전', '')
+        test_date = test_str.replace('. ', )
+        test_slice = test_date.replace('- ', ' ')
+        test_join = ":".join((test_slice, '00'))
+        if len(test_join) < 19:
+            test_list = test_join.split()
+            test_join = " 0".join(test_list)
+    else:
+        test_str = test.replace('오후', '')
+        test_date = test_str.replace('. ', '-')
+        test_slice = test_date.replace('- ', ' ')
+        test_join = ":".join((test_slice, '00'))
+        index1 = test_join.find(' ')
+        if len(test_join) < 19:
+            hour = int(test_join[index1+1:index1+2])
+            hour += 12
+            test_list = test_join[:index1+1]
+            test_list2 = test_join[index1+2:]
+            test_join = test_list + str(hour) + test_list2
+        else:
+            hour = int(test_join[index1+1:index1+3])
+            hour += 12
+            test_list = test_join[:index1+1]
+            test_list2 = test_join[index1+3:]
+            test_join = test_list + str(hour) + test_list2
+
+    return test_join
+
 @login_required
 def new_schedule(request, pk):
     appinfo = get_object_or_404(AppInfo, pk=pk)
@@ -47,8 +80,12 @@ def new_schedule(request, pk):
         print(request.method)
         # form = SchedulerForm(request.POST)
         form = JobForm(request.POST, appinfo)
-        print(request.POST, appinfo)
         form.app_name = pk
+        # form = JobForm(request.POST)
+        value = request.POST['next_run_time']
+        date_value = str_to_date(value)
+
+        print(form.next_run_time)
         if form.is_valid():
             print("1")
             # scheduler = Scheduler()

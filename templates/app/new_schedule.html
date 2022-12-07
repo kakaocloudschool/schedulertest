@@ -32,13 +32,14 @@
                             <form action="" method="POST" id='form'>
                                 {% csrf_token %}
                                 <h5 class="m-2 font-weight-bold text-primary" style="float:left;">날짜/시간 선택 : </h5>
-                                <div class='input-group' id='datetimepicker1' data-td-target-input='nearest' data-td-target-toggle='nearest' style="width:300px;">
-                                    <input id='datetimepicker1Input' type='text' class='form-control' data-td-target='#datetimepicker1' name="next_run_time" value="{{ next_run_time }}"/>
-                                   <span class='input-group-text' data-td-target='#datetimepicker1' data-td-toggle='datetimepicker'>
-                                     <span class='fa-solid fa-calendar'></span>
-                                   </span>
+                                    {% bootstrap_form form %}
+<!--                                <div class='input-group' id='datetimepicker1' data-td-target-input='nearest' data-td-target-toggle='nearest' style="width:300px;">-->
+<!--                                    <input id='datetimepicker1Input' type='text' class='form-control' data-td-target='#datetimepicker1' name="next_run_time" value="{{ next_run_time }}"/>-->
+<!--                                   <span class='input-group-text' data-td-target='#datetimepicker1' data-td-toggle='datetimepicker'>-->
+<!--                                     <span class='fa-solid fa-calendar'></span>-->
+<!--                                   </span>-->
 
-                                </div>
+<!--                                </div>-->
                                 <hr style="position: relative; top: 5px;"/>
 <!--                                <h5 class="m-2 font-weight-bold text-primary">배포방식 선택 : </h5>-->
 <!--                                <div style="margin-left:10px; position: relative; top: 7px;">{{ form.deploy_type }}</div>-->
