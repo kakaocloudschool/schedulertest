@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 
 from django.conf import settings
-from .forms import JobForm, JobExecutionForm, SchedulerForm
-from .models import DjangoJob,DjangoJobExecution,DjangoJobExecutionManager, Scheduler
+from .forms import JobForm, JobExecutionForm
+from .models import DjangoJob,DjangoJobExecution,DjangoJobExecutionManager
 from app.models import AppInfo
 from datetime import datetime
 
@@ -34,7 +34,7 @@ def scheduler(request, pk):
 
 @login_required
 def schedule_list(request, pk):
-    qs = Scheduler.objects.all()
+    qs = DjangoJob.objects.all()
     if qs:
         qs = qs.filter(app_name__app_name__exact=pk)
     return render(request, "app/schedule_list.html", {"schedule_list": qs, "pk": pk})
