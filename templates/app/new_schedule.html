@@ -31,20 +31,22 @@
 
                             <form action="" method="POST" id='form'>
                                 {% csrf_token %}
-                                <h5 class="m-2 font-weight-bold text-primary" style="float:left;">날짜/시간 선택 : </h5>
-                                    {% bootstrap_form form %}
-<!--                                <div class='input-group' id='datetimepicker1' data-td-target-input='nearest' data-td-target-toggle='nearest' style="width:300px;">-->
-<!--                                    <input id='datetimepicker1Input' type='text' class='form-control' data-td-target='#datetimepicker1' name="next_run_time" value="{{ next_run_time }}"/>-->
-<!--                                   <span class='input-group-text' data-td-target='#datetimepicker1' data-td-toggle='datetimepicker'>-->
-<!--                                     <span class='fa-solid fa-calendar'></span>-->
-<!--                                   </span>-->
 
-<!--                                </div>-->
-                                <hr style="position: relative; top: 5px;"/>
-<!--                                <h5 class="m-2 font-weight-bold text-primary">배포방식 선택 : </h5>-->
-<!--                                <div style="margin-left:10px; position: relative; top: 7px;">{{ form.deploy_type }}</div>-->
-                                <h5 class="m-2 font-weight-bold text-primary" style="float:left; ">배포방식 선택 : </h5>
-                                <div style="margin-left:160px; position: relative; top: 7px;" value="{{ deploy_type }}">{{ form.deploy_type }}</div>
+                                <p class="datetime">
+                                  Date:
+                                  <input type="text" name="last_login_0" value="2021-10-01" class="vDateField" size="10" id="id_last_login_0">
+                                  <span class="datetimeshortcuts">
+                                    <a href="#">Today</a> |
+                                    <a href="#" id="calendarlink0"><span class="date-icon" title="Choose a Date"></span></a>
+                                  </span>
+                                  <br>
+                                  Time:
+                                  <input type="text" name="last_login_1" value="18:18:52" class="vTimeField" size="8" id="id_last_login_1">
+                                  <span class="datetimeshortcuts">
+                                    <a href="#">Now</a> |
+                                    <a href="#" id="clocklink0"><span class="clock-icon" title="Choose a Time"></span></a>
+                                  </span>
+                                </p>
 
 
                                 <!-- DataTales Example -->

@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 
 from django.conf import settings
-from .forms import JobForm, JobExecutionForm, SchedulerForm
-from .models import DjangoJob,DjangoJobExecution,DjangoJobExecutionManager, Scheduler
+from .forms import JobForm, JobExecutionForm
+from .models import DjangoJob,DjangoJobExecution,DjangoJobExecutionManager
 from app.models import AppInfo
 from datetime import datetime
 
