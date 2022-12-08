@@ -31,8 +31,8 @@ class DjangoJob(models.Model): #apscheduler
         ("BlueGreen", "블루그린 배포"),
         ("Canary", "카나리 배포"),
     )
-    id = models.CharField(
-        max_length=255, primary_key=True, help_text=_("Unique id for this job.")
+    id = models.AutoField(
+        primary_key=True, help_text=_("Unique id for this job.")
     )
     app_name = models.ForeignKey(AppInfo, on_delete=models.RESTRICT, null=True,blank=True )
 
