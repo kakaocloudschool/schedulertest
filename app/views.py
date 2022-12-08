@@ -85,7 +85,7 @@ def str_to_date(test):
 
     if test.rfind('오후') == -1:
         test_str = test.replace('오전', '')
-        test_date = test_str.replace('. ', )
+        test_date = test_str.replace('. ', '-')
         test_slice = test_date.replace('- ', ' ')
         test_join = ":".join((test_slice, '00'))
         if len(test_join) < 19:
