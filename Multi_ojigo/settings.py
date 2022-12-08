@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import json
 import os
 from pathlib import Path
+
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse_lazy
 import pymysql
 from django.contrib.messages import constants as messages_constants
@@ -24,6 +27,7 @@ MESSAGE_TAGS = {
     messages_constants.ERROR: "danger",
 }
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,11 +35,25 @@ LOGIN_REDIRECT_URL = "/"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-%t47j-w%$i(nvq&&$teox(llkep@h_6^6geasbz%=%7$ef!fs&"
+secret_file = os.path.join(BASE_DIR, "secrets.json")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+
+SECRET_KEY = get_secret("SECRET_KEY")
+DEBUG = get_secret("DEBUG")
+ARGOCD_URL = get_secret("ARGOCD_URL")
+ARGOCD_USERNAME = get_secret("ARGOCD_USERNAME")
+ARGO_PASSWORD = get_secret("ARGO_PASSWORD")
+GITHUB_TOKEN = get_secret("GITHUB_TOKEN")
+
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -45,8 +63,6 @@ ALLOWED_HOSTS = [
 
 # APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 # APSCHEDULER_RUN_NOW_TIMEOUT = 25
-APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
-APSCHEDULER_RUN_NOW_TIMEOUT = 60
 
 # Application definition
 
@@ -58,30 +74,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # 3rd Party APP
-    "django_bootstrap5",
     "bootstrap4",
-    "django_apscheduler",
-
+    "django_bootstrap5",
     # local apps
     "accounts",
     "app",
-
-    "scheduler",
+    "django_apscheduler",
 ]
-
-# This scheduler config will:
-# - Store jobs in the project database
-# - Execute jobs in threads inside the application process
-SCHEDULER_CONFIG = {
-    "apscheduler.jobstores.default": {
-        "class": "django_apscheduler.jobstores:DjangoJobStore"
-    },
-    'apscheduler.executors.processpool': {
-        "type": "threadpool"
-    },
-}
-SCHEDULER_AUTOSTART = True
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -116,8 +115,8 @@ WSGI_APPLICATION = "Multi_ojigo.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
 pymysql.install_as_MySQLdb()
-#
 if DEBUG:
     # DATABASES = {
     #     "default": {
@@ -136,18 +135,18 @@ if DEBUG:
             "OPTIONS": {"init_command": 'SET sql_mode="STRICT_TRANS_TABLES"'},
         }
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": "argocd",
-            "USER": "root",
-            "PASSWORD": "test123",
-            "HOST": "192.168.50.106",
-            "PORT": "3306",
-            "OPTIONS": {"init_command": 'SET sql_mode="STRICT_TRANS_TABLES"'},
-        }
-    }
+# else:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.mysql",
+#             "NAME": "argocd",
+#             "USER": "root",
+#             "PASSWORD": "test123",
+#             "HOST": "192.168.50.106",
+#             "PORT": "3306",
+#             "OPTIONS": {"init_command": 'SET sql_mode="STRICT_TRANS_TABLES"'},
+#         }
+#     }
 
 
 # Password validation
@@ -197,7 +196,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-ARGOCD_URL = "https://192.168.50.104/"
-ARGOCD_USERNAME = "admin"
-ARGO_PASSWORD = "hHGfeDCRrCJ2pXCP"
